@@ -178,7 +178,7 @@
                 <!-- ===== LEFT PANE: DatInfo(148px FIXED) + Tree ===== -->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="148" MaxHeight="148"/>
+                        <RowDefinition Height="156" MaxHeight="156"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -261,7 +261,7 @@
                 <!-- ===== RIGHT PANE: GameInfo+Checkboxes(148px FIXED) + Grids ===== -->
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="148" MaxHeight="148"/>
+                        <RowDefinition Height="156" MaxHeight="156"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -282,8 +282,8 @@
                             </Grid>
                         </Border>
 
-                        <!-- Filter checkboxes (150px wide, starts at y=2) -->
-                        <StackPanel Grid.Column="1" Margin="0,2,4,0">
+                        <!-- Filter checkboxes (150px wide, nudged up; extra headroom to avoid DPI bleed) -->
+                        <StackPanel Grid.Column="1" Margin="0,0,4,0">
                             <CheckBox Name="chkBoxShowComplete" Classes="compact" Content="Show Complete" IsChecked="True"/>
                             <CheckBox Name="chkBoxShowPartial" Classes="compact" Content="Show Partial" IsChecked="True"/>
                             <CheckBox Name="chkBoxShowEmpty" Classes="compact" Content="Show Empty" IsChecked="True"/>
