@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -424,7 +425,7 @@ namespace ROMVault
                     var bgColor = dark.StatusColor(item.BackColor);
                     var fgColor = Contrasty(bgColor);
                     e.Row.Background = new SolidColorBrush(bgColor);
-                    e.Row.Foreground = new SolidColorBrush(fgColor);
+                    TextElement.SetForeground(e.Row, new SolidColorBrush(fgColor));
                 }
             }
             catch { }

@@ -24,7 +24,7 @@ namespace ROMVault
                 Text = text,
                 FontSize = 16,
                 FontWeight = FontWeight.Bold,
-                Foreground = this.FindResource("RvFgBrush") as IBrush ?? Brushes.Black,
+                Foreground = Brushes.White,
                 Margin = new Thickness(0, 4, 0, 4)
             });
         }
@@ -55,7 +55,8 @@ namespace ROMVault
                 RepStatus.UnScanned,
             };
 
-            Height = displayList.Count * 46 + 110;
+            // Cap height so it doesn't exceed screen; ScrollViewer handles overflow
+            Height = Math.Min(displayList.Count * 46 + 110, 700);
             AddSectionLabel("Basic Statuses");
 
             for (int i = 0; i < displayList.Count; i++)
@@ -124,7 +125,7 @@ namespace ROMVault
                         VerticalAlignment = VerticalAlignment.Center,
                         TextWrapping = TextWrapping.Wrap,
                         Margin = new Thickness(4),
-                        Foreground = this.FindResource("RvFgBrush") as IBrush ?? Brushes.Black
+                        Foreground = Brushes.White
                     }
                 };
                 row.Children.Add(label);

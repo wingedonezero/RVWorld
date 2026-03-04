@@ -7,7 +7,7 @@
         MinWidth="709" MinHeight="300"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        Background="{DynamicResource RvBgBrush}">
+        FontSize="12">
 
     <Grid Margin="12" RowDefinitions="Auto,Auto,Auto,Auto,*,Auto">
 
@@ -15,13 +15,13 @@
         <Grid Grid.Row="0" ColumnDefinitions="80,*" Margin="0,0,0,6">
             <TextBlock Grid.Column="0" Text="Rule Path:"
                        VerticalAlignment="Center"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
             <Border Grid.Column="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}" BorderThickness="1"
                     Background="{DynamicResource RvBgBrush0}" MinHeight="22">
                 <TextBlock x:Name="txtDATLocation"
                            VerticalAlignment="Center"
                            Margin="4,0"
-                           Foreground="{DynamicResource RvFgBrush}"/>
+    />
             </Border>
         </Grid>
 
@@ -29,13 +29,13 @@
         <Grid Grid.Row="1" ColumnDefinitions="80,*,Auto,Auto" Margin="0,0,0,6">
             <TextBlock Grid.Column="0" Text="Dir Location:"
                        VerticalAlignment="Center"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
             <Border Grid.Column="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}" BorderThickness="1"
                     Background="{DynamicResource RvBgBrush0}" MinHeight="22">
                 <TextBlock x:Name="txtROMLocation"
                            VerticalAlignment="Center"
                            Margin="4,0"
-                           Foreground="{DynamicResource RvFgBrush}"/>
+    />
             </Border>
             <Button x:Name="btnSetROMLocation" Grid.Column="2"
                     Width="33" Height="29" Margin="4,0,0,0"
@@ -66,8 +66,7 @@
         <!-- Row 3: Existing Mapping label -->
         <TextBlock x:Name="lblDelete" Grid.Row="3"
                    Text="Existing Mapping"
-                   FontWeight="Bold" Margin="0,0,0,4"
-                   Foreground="{DynamicResource RvFgBrush}"/>
+                   FontWeight="Bold" Margin="0,0,0,4"/>
 
         <!-- Row 4: DataGrid -->
         <dg:DataGrid x:Name="DGDirectoryMappingRules" Grid.Row="4"
@@ -79,8 +78,6 @@
                      SelectionMode="Extended"
                      GridLinesVisibility="All"
                      BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}" BorderThickness="1"
-                     Background="{DynamicResource RvBgBrush0}"
-                     Foreground="{DynamicResource RvFgBrush}"
                      DoubleTapped="DataGridGamesDoubleClick"
                      LoadingRow="DGDirectoryMappingRules_LoadingRow">
             <dg:DataGrid.Columns>

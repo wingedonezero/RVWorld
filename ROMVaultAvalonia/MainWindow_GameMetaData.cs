@@ -141,7 +141,10 @@ namespace ROMVault
             AddTextBox(7, "SubGenre", 206, 284, out _labelTruripSubGenre, out _textTruripSubGenre);
             AddTextBox(7, "Score", 406, 484, out _labelTruripScore, out _textTruripScore);
 
-            gbSetInfo_Resize(null, null);
+            // Wire up SizeChanged so TextBoxes resize after layout and on window resize
+            // (In the constructor, gbSetInfo.Bounds.Width is 0 — layout hasn't happened yet)
+            gbSetInfo.SizeChanged += (s, e) => gbSetInfo_Resize(s, e);
+
             UpdateGameMetaData(new RvFile(FileType.Dir));
         }
 

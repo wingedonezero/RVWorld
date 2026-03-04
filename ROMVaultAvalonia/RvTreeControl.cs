@@ -75,6 +75,7 @@ namespace ROMVault
         private void SetupInt()
         {
             _yPos = 0;
+            _contentWidth = 0;
 
             if (_lTree == null)
             {
@@ -96,6 +97,7 @@ namespace ROMVault
                 SetupTree(_lTree.Child(treeCount - 1), "\u2514"); // "└"
             }
 
+            _contentWidth = Math.Max(_contentWidth, 200);
             _contentHeight = _yPos;
             InvalidateMeasure();
             InvalidateVisual();
@@ -125,6 +127,22 @@ namespace ROMVault
             uTree.RChecked = new Rect(20 + nodeDepth * 18, _yPos + 2, 13, 13);
             uTree.RIcon = new Rect(35 + nodeDepth * 18, _yPos, 16, 16);
             uTree.RText = new Rect(51 + nodeDepth * 18, _yPos, 10000, nodeHeight);
+
+            // Estimate text width for horizontal scrolling
+            try
+            {
+                string nodeText = pTree.Name;
+                if (pTree.Dat == null && pTree.DirDatCount == 1)
+                    nodeText += ": " + (pTree.DirDat(0).GetData(RvDat.DatData.Description) ?? "");
+                int intMIA = pTree.DirStatus.CountMIA();
+                nodeText += $" ( Have: {pTree.DirStatus.CountCorrect()} \\ Missing: {pTree.DirStatus.CountMissing()}" +
+                    (intMIA > 0 ? $" \\ MIA: {intMIA}" : "") + " )";
+                var ft = new FormattedText(nodeText, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, _tTypeface, _tFontSize, Brushes.Black);
+                double nodeWidth = uTree.RText.X + ft.Width + 20;
+                if (nodeWidth > _contentWidth)
+                    _contentWidth = nodeWidth;
+            }
+            catch { }
 
             pTreeBranches = pTreeBranches.Replace("\u251C", "\u2502"); // "├" → "│"
             pTreeBranches = pTreeBranches.Replace("\u2514", " ");     // "└" → " "
@@ -205,10 +223,20 @@ namespace ROMVault
 
             Rect clipRect = new Rect(_hScroll, _vScroll, Bounds.Width, Bounds.Height);
 
-            // Fill background - use theme-appropriate background
-            IBrush bgBrush = dark.IsDarkTheme
-                ? new SolidColorBrush(Color.FromRgb(30, 30, 46))
-                : new SolidColorBrush(Colors.White);
+            // Fill background - use Fluent theme resource
+            IBrush bgBrush;
+            if (this.TryFindResource("SystemControlBackgroundChromeMediumLowBrush",
+                    this.ActualThemeVariant, out var bgRes) && bgRes is IBrush foundBrush)
+            {
+                bgBrush = foundBrush;
+            }
+            else
+            {
+                bgBrush = new SolidColorBrush(
+                    Application.Current?.ActualThemeVariant == ThemeVariant.Dark
+                        ? Color.Parse("#2B2B2B")
+                        : Colors.White);
+            }
             context.DrawRectangle(
                 bgBrush,
                 null,
@@ -238,9 +266,18 @@ namespace ROMVault
 
             if (uTree.RTree.Intersects(clipRect))
             {
-                var lineBrush = dark.IsDarkTheme
-                    ? new ImmutableSolidColorBrush(Color.FromRgb(140, 140, 140))
-                    : Brushes.Gray.ToImmutable();
+                ImmutableSolidColorBrush lineBrush;
+                if (this.TryFindResource("SystemChromeHighColor",
+                        this.ActualThemeVariant, out var lineColorRes) && lineColorRes is Color lineColor)
+                {
+                    lineBrush = new ImmutableSolidColorBrush(lineColor);
+                }
+                else
+                {
+                    lineBrush = Application.Current?.ActualThemeVariant == ThemeVariant.Dark
+                        ? new ImmutableSolidColorBrush(Color.Parse("#767676"))
+                        : new ImmutableSolidColorBrush(Colors.Gray);
+                }
                 var pen = new Pen(lineBrush, 1, new DashStyle(new double[] { 1, 1 }, 0));
 
                 string lTree = uTree.TreeBranches;
@@ -436,9 +473,17 @@ namespace ROMVault
                 }
                 else
                 {
-                    textBrush = dark.IsDarkTheme
-                        ? new ImmutableSolidColorBrush(Color.FromRgb(220, 220, 220))
-                        : Brushes.Black;
+                    if (this.TryFindResource("SystemBaseHighColor",
+                            this.ActualThemeVariant, out var fgRes) && fgRes is Color fgColor)
+                    {
+                        textBrush = new ImmutableSolidColorBrush(fgColor);
+                    }
+                    else
+                    {
+                        textBrush = Application.Current?.ActualThemeVariant == ThemeVariant.Dark
+                            ? new ImmutableSolidColorBrush(Color.Parse("#FFFFFF"))
+                            : Brushes.Black;
+                    }
                 }
 
                 thistxt += " " + subtxt;

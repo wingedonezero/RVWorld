@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
@@ -123,13 +124,12 @@ namespace ROMVault
                 var bgColor = dark.StatusColor(rowColor.Value);
                 var fgColor = MainWindow.Contrasty(bgColor);
                 e.Row.Background = new SolidColorBrush(bgColor);
-                e.Row.Foreground = new SolidColorBrush(fgColor);
+                TextElement.SetForeground(e.Row, new SolidColorBrush(fgColor));
             }
             else
             {
-                // Reset to default
                 e.Row.ClearValue(DataGridRow.BackgroundProperty);
-                e.Row.ClearValue(DataGridRow.ForegroundProperty);
+                e.Row.ClearValue(TextElement.ForegroundProperty);
             }
         }
 
@@ -312,7 +312,6 @@ namespace ROMVault
                 Height = 150,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 CanResize = false,
-                Background = this.FindResource("RvBgBrush") as IBrush,
                 Content = new StackPanel
                 {
                     Margin = new Avalonia.Thickness(16),
@@ -321,8 +320,7 @@ namespace ROMVault
                         new TextBlock
                         {
                             Text = message,
-                            TextWrapping = TextWrapping.Wrap,
-                            Foreground = this.FindResource("RvFgBrush") as IBrush ?? Brushes.Black
+                            TextWrapping = TextWrapping.Wrap
                         },
                         new Button
                         {

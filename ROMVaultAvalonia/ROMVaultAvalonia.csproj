@@ -6,6 +6,8 @@
     <RootNamespace>ROMVault</RootNamespace>
     <AssemblyName>ROMVault37</AssemblyName>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AssemblyVersion>3.7.4.0</AssemblyVersion>
+    <Version>3.7.4</Version>
   </PropertyGroup>
 
   <ItemGroup>

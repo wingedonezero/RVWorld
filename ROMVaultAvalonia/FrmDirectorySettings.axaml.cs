@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Compress;
+using DarkAvalonia;
 using DATReader.DatClean;
 using RomVaultCore;
 using RomVaultCore.ReadDat;
@@ -20,10 +22,6 @@ namespace ROMVault
         private static readonly Color _cMagenta = Color.FromArgb(255, 255, 214, 255);
         private static readonly Color _cGreen = Color.FromArgb(255, 214, 255, 214);
         private static readonly Color _cYellow = Color.FromArgb(255, 255, 255, 214);
-
-        private static readonly Color _cMagentaDark = Color.FromArgb(255, (byte)(255 * 0.8), (byte)(214 * 0.8), (byte)(255 * 0.8));
-        private static readonly Color _cGreenDark = Color.FromArgb(255, (byte)(214 * 0.8), (byte)(255 * 0.8), (byte)(214 * 0.8));
-        private static readonly Color _cYellowDark = Color.FromArgb(255, (byte)(255 * 0.8), (byte)(255 * 0.8), (byte)(214 * 0.8));
 
         public bool ChangesMade;
 
@@ -97,14 +95,14 @@ namespace ROMVault
 
             if (type)
             {
-                MinHeight = 335;
-                Height = 335;
+                MinHeight = 480;
+                Height = 480;
                 CanResize = false;
             }
             else
             {
                 MinHeight = 500;
-                Height = 620;
+                Height = 760;
                 CanResize = true;
             }
         }
@@ -221,25 +219,24 @@ namespace ROMVault
         {
             _gridItems.Clear();
 
-            bool isDark = Settings.rvSettings.Darkness;
-
             foreach (DatRule t in Settings.rvSettings.DatRules)
             {
                 Color? rowColor = null;
 
                 if (t.DirPath == "ToSort")
                 {
-                    rowColor = isDark ? _cMagentaDark : _cMagenta;
+                    rowColor = _cMagenta;
                 }
                 else if (t == _rule)
                 {
-                    rowColor = isDark ? _cGreenDark : _cGreen;
+                    rowColor = _cGreen;
                 }
                 else if (t.DirKey.Length > _rule.DirKey.Length)
                 {
-                    if (t.DirKey.Substring(0, _rule.DirKey.Length + 1) == _rule.DirKey + "\\")
+                    string separator = OperatingSystem.IsWindows() ? "\\" : "/";
+                    if (t.DirKey.Substring(0, _rule.DirKey.Length + 1) == _rule.DirKey + separator)
                     {
-                        rowColor = isDark ? _cYellowDark : _cYellow;
+                        rowColor = _cYellow;
                     }
                 }
 
@@ -419,6 +416,25 @@ namespace ROMVault
                 _rule = rowVm.Rule;
                 UpdateGrid();
                 SetDisplay();
+            }
+        }
+
+        private void DataGridGames_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            if (e.Row.DataContext is not DatRuleRowViewModel rowVm)
+                return;
+
+            if (rowVm.RowColor.HasValue)
+            {
+                var bgColor = dark.StatusColor(rowVm.RowColor.Value);
+                var fgColor = MainWindow.Contrasty(bgColor);
+                e.Row.Background = new SolidColorBrush(bgColor);
+                TextElement.SetForeground(e.Row, new SolidColorBrush(fgColor));
+            }
+            else
+            {
+                e.Row.ClearValue(DataGridRow.BackgroundProperty);
+                e.Row.ClearValue(TextElement.ForegroundProperty);
             }
         }
 

@@ -4,22 +4,25 @@
              RequestedThemeVariant="Default">
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
     </Application.Styles>
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
+                    <!-- Match Fluent Light palette -->
                     <SolidColorBrush x:Key="RvBgBrush0" Color="#FFFFFF" />
-                    <SolidColorBrush x:Key="RvBgBrush" Color="#F0F0F0" />
+                    <SolidColorBrush x:Key="RvBgBrush" Color="#F3F3F3" />
                     <SolidColorBrush x:Key="RvBgBrush1" Color="#FFFFFF" />
                     <SolidColorBrush x:Key="RvFgBrush" Color="#000000" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="RvBgBrush0" Color="#1E1E2E" />
-                    <SolidColorBrush x:Key="RvBgBrush" Color="#2B2B3B" />
-                    <SolidColorBrush x:Key="RvBgBrush1" Color="#33334A" />
-                    <SolidColorBrush x:Key="RvFgBrush" Color="#D4D4D4" />
+                    <!-- Match Fluent Dark palette: SystemChrome colors -->
+                    <SolidColorBrush x:Key="RvBgBrush0" Color="#171717" />
+                    <SolidColorBrush x:Key="RvBgBrush" Color="#1F1F1F" />
+                    <SolidColorBrush x:Key="RvBgBrush1" Color="#2B2B2B" />
+                    <SolidColorBrush x:Key="RvFgBrush" Color="#FFFFFF" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
