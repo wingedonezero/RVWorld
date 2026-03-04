@@ -404,13 +404,16 @@ namespace ROMVault
                 ScanRoms(level, _clickedTree);
         }
 
-        private void MnuDirSettings(object sender, RoutedEventArgs e)
+        private async void MnuDirSettings(object sender, RoutedEventArgs e)
         {
             var fDirSettings = new FrmDirectorySettings();
             string tDir = _clickedTree.TreeFullName;
             fDirSettings.SetLocation(tDir);
             fDirSettings.SetDisplayType(true);
-            fDirSettings.ShowDialog(this);
+            await fDirSettings.ShowDialog(this);
+
+            if (fDirSettings.ChangesMade)
+                await UpdateDats();
         }
 
         private void MnuDirMappings(object sender, RoutedEventArgs e)
@@ -580,17 +583,17 @@ namespace ROMVault
 
         #region TopMenu
 
-        private void updateNewDATsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        private async void updateNewDATsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (_working) return;
-            UpdateDats();
+            await UpdateDats();
         }
 
-        private void updateAllDATsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        private async void updateAllDATsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (_working) return;
             DatUpdate.CheckAllDats(DB.DirRoot.Child(0), @"DatRoot" + System.IO.Path.DirectorySeparatorChar);
-            UpdateDats();
+            await UpdateDats();
         }
 
         private async void AddToSortToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -662,14 +665,17 @@ namespace ROMVault
             fcfg.ShowDialog(this);
         }
 
-        private void DirectorySettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        private async void DirectorySettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (_working) return;
             var sd = new FrmDirectorySettings();
             string tDir = "RomVault";
             sd.SetLocation(tDir);
             sd.SetDisplayType(false);
-            sd.ShowDialog(this);
+            await sd.ShowDialog(this);
+
+            if (sd.ChangesMade)
+                await UpdateDats();
         }
 
         private void directoryMappingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -740,7 +746,7 @@ namespace ROMVault
             // handled by pointer released for shift detection
         }
 
-        private void BtnUpdateDatsPointerReleased(object sender, PointerReleasedEventArgs e)
+        private async void BtnUpdateDatsPointerReleased(object sender, PointerReleasedEventArgs e)
         {
             if (e.KeyModifiers.HasFlag(KeyModifiers.Shift))
             {
@@ -748,7 +754,7 @@ namespace ROMVault
             }
             RootDirsCreate.CheckDatRoot();
             Start();
-            UpdateDats();
+            await UpdateDats();
             Finish();
         }
 
@@ -875,7 +881,7 @@ namespace ROMVault
 
         #region CoreFunctions
 
-        public void UpdateDats()
+        public async System.Threading.Tasks.Task UpdateDats()
         {
             RvFile selected = ctrRvTree.Selected;
             List<RvFile> parents = new List<RvFile>();
@@ -887,7 +893,7 @@ namespace ROMVault
 
             FrmProgressWindow progress = new FrmProgressWindow(this, "Scanning Dats", DatUpdate.UpdateDat, null);
             progress.HideCancelButton();
-            progress.ShowDialog(this);
+            await progress.ShowDialog(this);
 
             ctrRvTree.Setup(ref DB.DirRoot);
 
@@ -972,36 +978,33 @@ namespace ROMVault
 
         private void Finish()
         {
-            Dispatcher.UIThread.Post(() =>
+            _working = false;
+            ctrRvTree.Working = false;
+
+            foreach (var item in menuStrip1.Items)
             {
-                _working = false;
-                ctrRvTree.Working = false;
+                if (item is MenuItem menuItem)
+                    menuItem.IsEnabled = true;
+            }
 
-                foreach (var item in menuStrip1.Items)
-                {
-                    if (item is MenuItem menuItem)
-                        menuItem.IsEnabled = true;
-                }
+            imgUpdateDats.Source = rvImages.GetBitmap("btnUpdateDats_Enabled");
+            imgScanRoms.Source = rvImages.GetBitmap("btnScanRoms_Enabled");
+            imgFindFixes.Source = rvImages.GetBitmap("btnFindFixes_Enabled");
+            imgFixFiles.Source = rvImages.GetBitmap("btnFixFiles_Enabled");
+            imgReport.Source = rvImages.GetBitmap("btnReport_Enabled");
 
-                imgUpdateDats.Source = rvImages.GetBitmap("btnUpdateDats_Enabled");
-                imgScanRoms.Source = rvImages.GetBitmap("btnScanRoms_Enabled");
-                imgFindFixes.Source = rvImages.GetBitmap("btnFindFixes_Enabled");
-                imgFixFiles.Source = rvImages.GetBitmap("btnFixFiles_Enabled");
-                imgReport.Source = rvImages.GetBitmap("btnReport_Enabled");
+            btnDefault1.IsEnabled = true;
+            btnDefault2.IsEnabled = true;
+            btnDefault3.IsEnabled = true;
+            btnDefault4.IsEnabled = true;
+            btnUpdateDats.IsEnabled = true;
+            btnScanRoms.IsEnabled = true;
+            btnFindFixes.IsEnabled = true;
+            btnFixFiles.IsEnabled = true;
+            btnReport.IsEnabled = true;
 
-                btnDefault1.IsEnabled = true;
-                btnDefault2.IsEnabled = true;
-                btnDefault3.IsEnabled = true;
-                btnDefault4.IsEnabled = true;
-                btnUpdateDats.IsEnabled = true;
-                btnScanRoms.IsEnabled = true;
-                btnFindFixes.IsEnabled = true;
-                btnFixFiles.IsEnabled = true;
-                btnReport.IsEnabled = true;
-
-                _timer1.IsEnabled = false;
-                DatSetSelected(ctrRvTree.Selected);
-            });
+            _timer1.IsEnabled = false;
+            DatSetSelected(ctrRvTree.Selected);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
