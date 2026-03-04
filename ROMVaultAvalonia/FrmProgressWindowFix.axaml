@@ -30,6 +30,7 @@
         <DataGrid x:Name="dataGridView1" Grid.Row="1"
                   Margin="0,4,0,0"
                   IsReadOnly="True"
+                  CanUserResizeColumns="True"
                   CanUserReorderColumns="False"
                   HeadersVisibility="Column"
                   GridLinesVisibility="Horizontal"

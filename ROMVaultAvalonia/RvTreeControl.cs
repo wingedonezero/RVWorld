@@ -591,7 +591,21 @@ namespace ROMVault
 
         private bool CheckMouseUp(RvFile pTree, double x, double y, PointerReleasedEventArgs e)
         {
-            UiTree uTree = (UiTree)pTree.Tree.UiObject;
+            RvTreeRow treeRow = pTree?.Tree;
+            if (treeRow == null)
+                return false;
+
+            UiTree uTree = treeRow.UiObject as UiTree;
+            if (uTree == null)
+            {
+                // If the UI tree mapping is stale, rebuild once and retry.
+                SetupInt();
+                treeRow = pTree.Tree;
+                uTree = treeRow?.UiObject as UiTree;
+                if (uTree == null)
+                    return false;
+            }
+
             Point pt = new Point(x, y);
 
             if (!Working && uTree.RChecked.Contains(pt))
@@ -611,7 +625,7 @@ namespace ROMVault
                 }
 
                 _mousehit = true;
-                SetChecked(pTree, pTree.Tree.Checked == RvTreeRow.TreeSelect.Selected ? RvTreeRow.TreeSelect.UnSelected : RvTreeRow.TreeSelect.Selected, Working, shiftPressed);
+                SetChecked(pTree, treeRow.Checked == RvTreeRow.TreeSelect.Selected ? RvTreeRow.TreeSelect.UnSelected : RvTreeRow.TreeSelect.Selected, Working, shiftPressed);
                 return true;
             }
 
@@ -632,7 +646,7 @@ namespace ROMVault
                 return true;
             }
 
-            if (!pTree.Tree.TreeExpanded)
+            if (!treeRow.TreeExpanded)
                 return false;
 
             for (int i = 0; i < pTree.ChildCount; i++)
