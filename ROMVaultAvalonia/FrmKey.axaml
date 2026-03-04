@@ -1,0 +1,12 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ROMVault.FrmKey"
+        Title="Color Key"
+        Width="610" Height="600"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="{DynamicResource RvBgBrush}">
+    <ScrollViewer>
+        <StackPanel x:Name="mainPanel" Margin="6"/>
+    </ScrollViewer>
+</Window>

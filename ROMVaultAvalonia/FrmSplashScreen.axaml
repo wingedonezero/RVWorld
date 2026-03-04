@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ROMVault.FrmSplashScreen"
+        Title="RomVault Loading..."
+        Width="400" Height="180"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        SystemDecorations="BorderOnly"
+        Background="{DynamicResource RvBgBrush}">
+    <Grid RowDefinitions="Auto,*,Auto" Margin="16">
+        <TextBlock x:Name="lblVersion" Grid.Row="0"
+                   Text="RomVault" FontSize="16" FontWeight="Bold"
+                   Foreground="{DynamicResource RvFgBrush}"
+                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+        <TextBlock x:Name="lblStatus" Grid.Row="1"
+                   Text="Loading..." FontSize="12"
+                   Foreground="{DynamicResource RvFgBrush}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ProgressBar x:Name="progressBar" Grid.Row="2"
+                     Height="20" Minimum="0" Maximum="100" Value="0"/>
+    </Grid>
+</Window>

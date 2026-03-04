@@ -30,6 +30,8 @@
 /RVServiceAccess/obj
 /Trrntzip/bin
 /Trrntzip/obj
+/TrrntZip/bin
+/TrrntZip/obj
 /TrrntZipCMD/bin
 /TrrntZipCMD/obj
 /TrrntZipUI/bin
@@ -44,6 +46,12 @@
 /SortMethods/obj
 /TrrntZipUICore/bin/Debug
 /TrrntZipUICore/obj
+/DarkAvalonia/bin
+/DarkAvalonia/obj
+/ROMVaultAvalonia/bin
+/ROMVaultAvalonia/obj
+/TrrntZipUIAvalonia/bin
+/TrrntZipUIAvalonia/obj
 /.vs/RVWorld/v16/Server/sqlite3
 /.vs/RVWorld/v16/.suo
 /.vs
