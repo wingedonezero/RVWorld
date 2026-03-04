@@ -1,0 +1,27 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ROMVault.App"
+             RequestedThemeVariant="Default">
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="RvBgBrush0" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="RvBgBrush" Color="#F0F0F0" />
+                    <SolidColorBrush x:Key="RvBgBrush1" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="RvFgBrush" Color="#000000" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="RvBgBrush0" Color="#1E1E2E" />
+                    <SolidColorBrush x:Key="RvBgBrush" Color="#2B2B3B" />
+                    <SolidColorBrush x:Key="RvBgBrush1" Color="#33334A" />
+                    <SolidColorBrush x:Key="RvFgBrush" Color="#D4D4D4" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
