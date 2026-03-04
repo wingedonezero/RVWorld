@@ -5,7 +5,16 @@
         Width="527" Height="170"
         MinWidth="527"
         WindowStartupLocation="CenterOwner"
-        CanResize="True">
+        CanResize="True"
+        FontSize="12">
+
+    <Window.Styles>
+        <Style Selector="Button.progressCompact">
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Window.Styles>
     <Grid RowDefinitions="Auto,*">
         <!-- Panel 1: Progress controls (fixed height top area) -->
         <Grid x:Name="topPanel" Grid.Row="0" Height="130" Margin="12,9,12,0"
@@ -14,6 +23,7 @@
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
                 <TextBlock x:Name="label" Grid.Column="0"
                            Text="Starting operation..."
+                           Height="15"
                            TextTrimming="CharacterEllipsis"
 />
                 <TextBlock x:Name="lbl2Prog" Grid.Column="1"
@@ -21,6 +31,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
                            Width="109"
+                           Height="25"
                            TextAlignment="Right"
 />
             </Grid>
@@ -28,11 +39,13 @@
             <!-- Row 1: label2 -->
             <TextBlock x:Name="label2" Grid.Row="1"
                        IsVisible="False"
+                       Height="16"
                        TextTrimming="CharacterEllipsis"
                        Margin="0,4,0,0"/>
 
             <!-- Row 2: label3 -->
             <TextBlock x:Name="label3" Grid.Row="2"
+                       Height="16"
                        TextTrimming="CharacterEllipsis"
                        Margin="0,4,0,0"/>
 
@@ -46,7 +59,7 @@
             <Grid Grid.Row="4" ColumnDefinitions="*,Auto" Margin="0,4,0,0">
                 <ProgressBar x:Name="progressBar" Grid.Column="0"
                              Height="23" Minimum="0" Maximum="100" Value="0"/>
-                <Button x:Name="cancelButton" Grid.Column="1"
+                <Button x:Name="cancelButton" Grid.Column="1" Classes="progressCompact"
                         Content="Cancel" Width="75" Height="23"
                         Margin="12,0,0,0"
                         Click="CancelButtonClick"/>

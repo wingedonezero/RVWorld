@@ -95,14 +95,15 @@ namespace ROMVault
 
             if (type)
             {
-                MinHeight = 480;
-                Height = 480;
-                CanResize = false;
+                // Compact mode still needs extra room in Avalonia/Fluent to avoid clipping
+                MinHeight = 540;
+                Height = 540;
+                CanResize = true;
             }
             else
             {
-                MinHeight = 500;
-                Height = 760;
+                MinHeight = 620;
+                Height = 700;
                 CanResize = true;
             }
         }
