@@ -38,9 +38,10 @@
         <!-- Compact checkboxes: fit 6 checkboxes + filter in 148px area -->
         <Style Selector="CheckBox.compact">
             <Setter Property="Padding" Value="4,0,0,0"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="MinHeight" Value="17"/>
+            <Setter Property="Height" Value="17"/>
             <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
         <!-- Compact readonly textboxes: match WinForms 17px height -->
@@ -283,7 +284,7 @@
                         </Border>
 
                         <!-- Filter checkboxes (150px wide, starts at y=2) -->
-                        <StackPanel Grid.Column="1" Margin="0,2,4,0">
+                        <StackPanel Grid.Column="1" Margin="0,2,4,0" Spacing="0">
                             <CheckBox Name="chkBoxShowComplete" Classes="compact" Content="Show Complete" IsChecked="True"/>
                             <CheckBox Name="chkBoxShowPartial" Classes="compact" Content="Show Partial" IsChecked="True"/>
                             <CheckBox Name="chkBoxShowEmpty" Classes="compact" Content="Show Empty" IsChecked="True"/>
