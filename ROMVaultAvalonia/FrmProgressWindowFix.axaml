@@ -4,8 +4,7 @@
         Title="Fixing Files"
         Width="1043" Height="539"
         WindowStartupLocation="CenterOwner"
-        CanResize="True"
-        Background="{DynamicResource RvBgBrush}">
+        CanResize="True">
     <Grid RowDefinitions="Auto,*">
         <!-- Panel 1: Label, progress bar, and cancel button -->
         <Grid Grid.Row="0" Height="64" Margin="12,9,12,0"
@@ -14,7 +13,7 @@
             <TextBlock x:Name="label" Grid.Row="0"
                        Text="Starting operation..."
                        TextTrimming="CharacterEllipsis"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
             <!-- Row 1: progressBar + cancelButton -->
             <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="0,4,0,0">
@@ -35,9 +34,7 @@
                   HeadersVisibility="Column"
                   GridLinesVisibility="Horizontal"
                   SelectionMode="Single"
-                  AutoGenerateColumns="False"
-                  Background="{DynamicResource RvBgBrush0}"
-                  Foreground="{DynamicResource RvFgBrush}">
+                  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Directory (Fixing)" Width="250"
                                     Binding="{Binding FixDir}"/>

@@ -5,8 +5,7 @@
         Width="527" Height="170"
         MinWidth="527"
         WindowStartupLocation="CenterOwner"
-        CanResize="True"
-        Background="{DynamicResource RvBgBrush}">
+        CanResize="True">
     <Grid RowDefinitions="Auto,*">
         <!-- Panel 1: Progress controls (fixed height top area) -->
         <Grid x:Name="topPanel" Grid.Row="0" Height="130" Margin="12,9,12,0"
@@ -16,28 +15,26 @@
                 <TextBlock x:Name="label" Grid.Column="0"
                            Text="Starting operation..."
                            TextTrimming="CharacterEllipsis"
-                           Foreground="{DynamicResource RvFgBrush}"/>
+/>
                 <TextBlock x:Name="lbl2Prog" Grid.Column="1"
                            IsVisible="False"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
                            Width="109"
                            TextAlignment="Right"
-                           Foreground="{DynamicResource RvFgBrush}"/>
+/>
             </Grid>
 
             <!-- Row 1: label2 -->
             <TextBlock x:Name="label2" Grid.Row="1"
                        IsVisible="False"
                        TextTrimming="CharacterEllipsis"
-                       Margin="0,4,0,0"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+                       Margin="0,4,0,0"/>
 
             <!-- Row 2: label3 -->
             <TextBlock x:Name="label3" Grid.Row="2"
                        TextTrimming="CharacterEllipsis"
-                       Margin="0,4,0,0"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+                       Margin="0,4,0,0"/>
 
             <!-- Row 3: progressBar2 -->
             <ProgressBar x:Name="progressBar2" Grid.Row="3"
@@ -65,9 +62,7 @@
                   HeadersVisibility="Column"
                   GridLinesVisibility="Horizontal"
                   SelectionMode="Single"
-                  AutoGenerateColumns="False"
-                  Background="{DynamicResource RvBgBrush0}"
-                  Foreground="{DynamicResource RvFgBrush}">
+                  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Error" Width="200"
                                     Binding="{Binding Error}"/>

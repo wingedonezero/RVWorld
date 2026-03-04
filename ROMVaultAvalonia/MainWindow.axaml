@@ -4,7 +4,8 @@
         x:Class="ROMVault.MainWindow"
         Title="RomVault"
         Width="1430" Height="749"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
 
     <Window.Styles>
         <!-- Flat toolbar buttons: transparent, no border -->
@@ -59,6 +60,20 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0,0,4,0"/>
+        </Style>
+
+        <!-- DataGrid: compact sizing to match WinForms row density -->
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="MinHeight" Value="22"/>
+            <Setter Property="Padding" Value="4,2"/>
+        </Style>
+        <Style Selector="DataGridRow">
+            <Setter Property="MinHeight" Value="19"/>
+        </Style>
+        <Style Selector="DataGridCell TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Window.Styles>
 
@@ -233,9 +248,9 @@
                     </Border>
 
                     <!-- ctrRvTree (Dock=Fill, BorderStyle=FixedSingle) -->
-                    <Border Grid.Row="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}" BorderThickness="1" Margin="0,1,0,0">
+                    <Border Grid.Row="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}" BorderThickness="1" Margin="0,0,0,0">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                            <local:RvTreeControl Name="ctrRvTree"/>
+                            <local:RvTreeControl Name="ctrRvTree" VerticalAlignment="Top"/>
                         </ScrollViewer>
                     </Border>
                 </Grid>
@@ -310,7 +325,9 @@
                                       GridLinesVisibility="Horizontal"
                                       HeadersVisibility="Column"
                                       RowHeight="19"
-                                      FontSize="12">
+                                      FontSize="12"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Type" Width="40" MinWidth="9" CanUserSort="True">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -327,7 +344,7 @@
                                                         IsVisible="{Binding #GameGrid.Tag, FallbackValue=True}"/>
                                     <DataGridTextColumn Header="Modified" Width="150" MinWidth="8"
                                                         Binding="{Binding DateTime}" CanUserSort="True"/>
-                                    <DataGridTemplateColumn Header="ROM Status" Width="*" MinWidth="200" CanUserSort="False">
+                                    <DataGridTemplateColumn Header="ROM Status" Width="200" MinWidth="200" CanUserSort="False">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding StatusBitmap}" Height="18" Stretch="Uniform"
@@ -352,7 +369,9 @@
                                       GridLinesVisibility="Horizontal"
                                       HeadersVisibility="Column"
                                       RowHeight="19"
-                                      FontSize="12">
+                                      FontSize="12"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Got" Width="65" MinWidth="9" CanUserSort="True">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -364,9 +383,9 @@
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="ROM (File)" Width="150" MinWidth="9"
                                                         Binding="{Binding RomName}" CanUserSort="True"/>
-                                    <DataGridTextColumn Header="Merge" Width="60" MinWidth="9"
+                                    <DataGridTextColumn Header="Merge" Width="80" MinWidth="9"
                                                         Binding="{Binding Merge}" CanUserSort="True"/>
-                                    <DataGridTextColumn Header="Size" Width="60" MinWidth="9"
+                                    <DataGridTextColumn Header="Size" Width="80" MinWidth="9"
                                                         Binding="{Binding Size}" CanUserSort="True"/>
                                     <DataGridTextColumn Header="CRC32" Width="175" MinWidth="9"
                                                         Binding="{Binding CRC32}" CanUserSort="True"/>

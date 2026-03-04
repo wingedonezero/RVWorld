@@ -2,11 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="ROMVault.FrmSettings"
         Title="RomVault Settings"
-        Width="497" Height="570"
+        Width="497" Height="790"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
         ShowInTaskbar="False"
-        Background="{DynamicResource RvBgBrush}">
+        FontSize="12"
+>
 
     <Grid Margin="8" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*,Auto">
         <Grid.ColumnDefinitions>
@@ -22,16 +23,16 @@
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
                    Margin="0,0,8,0"
-                   Foreground="{DynamicResource RvFgBrush}"/>
+ />
         <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="Auto,*,Auto" Margin="0,2">
             <TextBlock Grid.Column="0" Text="DATRoot:"
                        VerticalAlignment="Center" Margin="0,0,6,0"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
             <Border Grid.Column="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}" BorderThickness="1"
                     Background="{DynamicResource RvBgBrush0}" MinHeight="24">
                 <TextBlock x:Name="lblDATRoot"
                            VerticalAlignment="Center" Margin="4,0"
-                           Foreground="{DynamicResource RvFgBrush}"/>
+    />
             </Border>
             <Button Grid.Column="2" Content="Set" Width="44" Height="24"
                     Margin="4,0,0,0"
@@ -42,7 +43,7 @@
         <Grid Grid.Row="1" Grid.Column="1" ColumnDefinitions="Auto,*" Margin="0,4">
             <TextBlock Grid.Column="0" Text="Fixing Level:"
                        VerticalAlignment="Center" Margin="0,0,6,0"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
             <ComboBox x:Name="cboFixLevel" Grid.Column="1"
                       HorizontalAlignment="Stretch"/>
         </Grid>
@@ -51,41 +52,39 @@
         <TextBlock Grid.Row="2" Grid.Column="1"
                    Margin="0,6,0,2"
                    TextWrapping="Wrap"
-                   Foreground="{DynamicResource RvFgBrush}"
                    Text="Filenames not to remove:&#x0a;- One rule per line&#x0a;- Basic rules support * and ? wildcards&#x0a;- Regex rules must start with 'regex:'&#x0a;- Scanning Ignore rules must start with 'ignore:'"/>
 
         <!-- Row 3: Ignore files textbox -->
         <TextBox x:Name="textBox1" Grid.Row="3" Grid.Column="1"
                  AcceptsReturn="True" TextWrapping="Wrap"
                  Height="121" Margin="0,2"
-                 Background="{DynamicResource RvBgBrush0}"
-                 Foreground="{DynamicResource RvFgBrush}"/>
+                 Background="{DynamicResource RvBgBrush0}"/>
 
         <!-- Row 4: Double check delete -->
         <CheckBox x:Name="chkDoubleCheckDelete" Grid.Row="4" Grid.Column="1"
                   Content="Double check file exists elsewhere before deleting"
                   Margin="0,4"
-                  Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
         <!-- Row 5: Cache save timer -->
         <Grid Grid.Row="5" Grid.Column="1" ColumnDefinitions="Auto,Auto,Auto" Margin="0,2">
             <CheckBox x:Name="chkCacheSaveTimer" Grid.Column="0"
                       Content="Save Cache on timer every"
-                      Foreground="{DynamicResource RvFgBrush}"/>
+    />
             <NumericUpDown x:Name="upTime" Grid.Column="1"
                            Width="75" Margin="4,0"
                            Minimum="5" Maximum="60" Increment="5" Value="10"
                            FormatString="0"/>
             <TextBlock Grid.Column="2" Text="Minutes"
                        VerticalAlignment="Center"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
         </Grid>
 
         <!-- Row 6: Dark mode -->
         <CheckBox x:Name="chkDarkMode" Grid.Row="6" Grid.Column="1"
                   Content="Dark Mode (Restart required.)"
                   Margin="0,4"
-                  Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
         <!-- ===== Compression Section ===== -->
 
@@ -95,11 +94,11 @@
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
                    Margin="0,6,8,0"
-                   Foreground="{DynamicResource RvFgBrush}"/>
+ />
         <Grid Grid.Row="7" Grid.Column="1" ColumnDefinitions="Auto,Auto" Margin="0,6,0,2">
             <TextBlock Grid.Column="0" Text="Max ZSTD workers:"
                        VerticalAlignment="Center" Margin="16,0,6,0"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
             <ComboBox x:Name="cboCores" Grid.Column="1" Width="90"/>
         </Grid>
 
@@ -107,7 +106,7 @@
         <Grid Grid.Row="8" Grid.Column="1" ColumnDefinitions="Auto,Auto" Margin="0,2">
             <TextBlock Grid.Column="0" Text="Default 7Z type:"
                        VerticalAlignment="Center" Margin="16,0,6,0"
-                       Foreground="{DynamicResource RvFgBrush}"/>
+/>
             <ComboBox x:Name="cbo7zStruct" Grid.Column="1" Width="160"/>
         </Grid>
 
@@ -119,23 +118,23 @@
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
                    Margin="0,8,8,0"
-                   Foreground="{DynamicResource RvFgBrush}"/>
+ />
         <CheckBox x:Name="chkSendFoundMIA" Grid.Row="9" Grid.Column="1"
                   Content="Send Found MIA notifications"
                   Margin="0,8,0,0"
-                  Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
         <!-- Row 10: Send anonymously -->
         <CheckBox x:Name="chkSendFoundMIAAnon" Grid.Row="10" Grid.Column="1"
                   Content="Send anonymously"
                   Margin="16,2,0,0"
-                  Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
         <!-- Row 11: Delete old cue files -->
         <CheckBox x:Name="chkDeleteOldCueFiles" Grid.Row="11" Grid.Column="1"
                   Content="Delete previous Cue file zips in ToSort"
                   Margin="0,4"
-                  Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
         <!-- ===== Logging Section ===== -->
 
@@ -145,22 +144,22 @@
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
                    Margin="0,8,8,0"
-                   Foreground="{DynamicResource RvFgBrush}"/>
+ />
         <CheckBox x:Name="chkDetailedReporting" Grid.Row="12" Grid.Column="1"
                   Content="Show detailed actions in Fixing Status window"
                   Margin="0,8,0,0"
-                  Foreground="{DynamicResource RvFgBrush}"/>
+/>
 
         <!-- Row 13: Debug logs + Do not report feedback -->
         <StackPanel Grid.Row="13" Grid.Column="1" Margin="0,2">
             <CheckBox x:Name="chkDebugLogs"
                       Content="Enable Debug logging"
                       Margin="0,2"
-                      Foreground="{DynamicResource RvFgBrush}"/>
+    />
             <CheckBox x:Name="chkDoNotReportFeedback"
                       Content="Do not report feedback"
                       Margin="0,2"
-                      Foreground="{DynamicResource RvFgBrush}"/>
+    />
         </StackPanel>
 
         <!-- Row 14: Spacer -->

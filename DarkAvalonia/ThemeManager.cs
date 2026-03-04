@@ -8,10 +8,11 @@ namespace DarkAvalonia
 {
     public static class dark
     {
-        public static Color bg0 = Color.FromRgb(37, 39, 44);
-        public static Color bg = Color.FromRgb(47, 49, 54);
-        public static Color bg1 = Color.FromRgb(54, 57, 63);
-        public static Color fg = Color.FromRgb(210, 210, 210);
+        // Match Fluent Dark palette: SystemChromeLow/Medium/MediumLow
+        public static Color bg0 = Color.FromRgb(0x17, 0x17, 0x17);   // #171717 SystemChromeLow
+        public static Color bg = Color.FromRgb(0x1F, 0x1F, 0x1F);    // #1F1F1F SystemChromeMedium
+        public static Color bg1 = Color.FromRgb(0x2B, 0x2B, 0x2B);   // #2B2B2B SystemChromeMediumLow
+        public static Color fg = Color.FromRgb(0xFF, 0xFF, 0xFF);    // #FFFFFF SystemBaseHigh
 
         // Lazy-initialized to avoid creating Avalonia objects before platform init
         private static IBrush _sb_bg;
@@ -43,14 +44,14 @@ namespace DarkAvalonia
         /// <summary>
         /// Convert a light-mode pastel status color to an appropriate dark-mode equivalent.
         /// Preserves the hue/tint direction while shifting to a dark range that's visible
-        /// against Fluent Dark backgrounds (~#1E1E1E to #2C2C2C).
+        /// against Fluent Dark backgrounds (~#1F1F1F to #2B2B2B).
         /// </summary>
         public static Color ToDarkVariant(Color c)
         {
-            // Scale to ~30-90 range to be visible against dark backgrounds
-            byte r = (byte)Math.Clamp(c.R * 0.35, c.R > 0 ? 25 : 0, 100);
-            byte g = (byte)Math.Clamp(c.G * 0.35, c.G > 0 ? 25 : 0, 100);
-            byte b = (byte)Math.Clamp(c.B * 0.35, c.B > 0 ? 25 : 0, 100);
+            // Scale to ~40-110 range to be clearly visible against Fluent Dark backgrounds
+            byte r = (byte)Math.Clamp(c.R * 0.40, c.R > 0 ? 30 : 0, 110);
+            byte g = (byte)Math.Clamp(c.G * 0.40, c.G > 0 ? 30 : 0, 110);
+            byte b = (byte)Math.Clamp(c.B * 0.40, c.B > 0 ? 30 : 0, 110);
             return Color.FromRgb(r, g, b);
         }
 
@@ -65,32 +66,32 @@ namespace DarkAvalonia
 
         public static Color bgColor(Color c)
         {
-            return darkEnabled ? bg : c;
+            return IsDarkTheme ? bg : c;
         }
 
         public static Color bgColor1(Color c)
         {
-            return darkEnabled ? bg1 : c;
+            return IsDarkTheme ? bg1 : c;
         }
 
         public static IBrush bgBrush(IBrush b)
         {
-            return darkEnabled ? sb_bg : b;
+            return IsDarkTheme ? sb_bg : b;
         }
 
         public static IBrush bgBrush1(IBrush b)
         {
-            return darkEnabled ? sb_bg1 : b;
+            return IsDarkTheme ? sb_bg1 : b;
         }
 
         public static IBrush fgBrush(IBrush b)
         {
-            return darkEnabled ? sb_fg : b;
+            return IsDarkTheme ? sb_fg : b;
         }
 
         public static Color Down(Color c)
         {
-            if (!darkEnabled)
+            if (!IsDarkTheme)
                 return c;
 
             return Color.FromArgb(255, (byte)(c.R * 0.8), (byte)(c.G * 0.8), (byte)(c.B * 0.8));

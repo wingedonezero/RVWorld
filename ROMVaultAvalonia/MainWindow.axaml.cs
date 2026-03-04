@@ -157,7 +157,14 @@ namespace ROMVault
             GameGrid.AddHandler(PointerReleasedEvent, GameGridPointerReleased, RoutingStrategies.Tunnel);
             RomGrid.AddHandler(PointerReleasedEvent, RomGridPointerReleased, RoutingStrategies.Tunnel);
 
+            // Focus DataGrids on pointer enter so mouse wheel scrolling works
+            GameGrid.PointerEntered += (s, e) => GameGrid.Focus();
+            RomGrid.PointerEntered += (s, e) => RomGrid.Focus();
+
             ctrRvTree.Setup(ref DB.DirRoot);
+
+            // Focus tree on pointer enter so mouse wheel scrolling works
+            ctrRvTree.PointerEntered += (s, e) => ctrRvTree.Focus();
 
             // Set up tree events
             ctrRvTree.RvSelected += DirTreeRvSelected;
@@ -699,7 +706,7 @@ namespace ROMVault
             {
                 _fk = new FrmKey();
             }
-            _fk.Show();
+            _fk.Show(this);
         }
 
         private void AboutRomVaultToolStripMenuItemClick(object sender, RoutedEventArgs e)
@@ -721,7 +728,7 @@ namespace ROMVault
         private void torrentZipToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             var trrntZipWindow = new FrmTrrntzip();
-            trrntZipWindow.Show();
+            trrntZipWindow.Show(this);
         }
 
         #endregion
@@ -905,7 +912,7 @@ namespace ROMVault
             Start();
             if (closedHandler != null)
                 frmScanRoms.Closed += closedHandler;
-            frmScanRoms.Show();
+            frmScanRoms.Show(this);
         }
 
         public FrmProgressWindow frmFindFixes;
@@ -916,7 +923,7 @@ namespace ROMVault
             Start();
             if (closedHandler != null)
                 frmFindFixes.Closed += closedHandler;
-            frmFindFixes.Show();
+            frmFindFixes.Show(this);
         }
 
         FrmProgressWindowFix frmFixFiles;
@@ -926,7 +933,7 @@ namespace ROMVault
             Start();
             if (closedHandler != null)
                 frmFixFiles.Closed += closedHandler;
-            frmFixFiles.Show();
+            frmFixFiles.Show(this);
         }
 
         internal bool _working = false;

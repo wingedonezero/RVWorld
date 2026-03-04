@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -253,7 +254,7 @@ namespace ROMVault
                     var bgColor = dark.StatusColor(item.BackColor);
                     var fgColor = Contrasty(bgColor);
                     e.Row.Background = new SolidColorBrush(bgColor);
-                    e.Row.Foreground = new SolidColorBrush(fgColor);
+                    TextElement.SetForeground(e.Row, new SolidColorBrush(fgColor));
                 }
             }
             catch { }
