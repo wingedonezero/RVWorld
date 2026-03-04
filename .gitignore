@@ -58,3 +58,4 @@
 *.user
 /.idea/
 /publish-*/
+.claude
