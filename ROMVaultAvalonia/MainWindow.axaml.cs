@@ -1004,7 +1004,27 @@ namespace ROMVault
             btnReport.IsEnabled = true;
 
             _timer1.IsEnabled = false;
-            DatSetSelected(ctrRvTree.Selected);
+
+            // Mirror WinForms completion behavior, but defensively handle stale/invalid
+            // selected nodes so a scan completion cannot crash the UI.
+            try
+            {
+                RvFile selected = ctrRvTree.Selected;
+
+                // If selection no longer maps to a visible tree node, clear selection and
+                // refresh from root to keep tree/grid in a valid state.
+                if (selected != null && selected.Tree == null)
+                {
+                    ctrRvTree.SetSelected(null);
+                    selected = null;
+                }
+
+                DatSetSelected(selected);
+            }
+            catch
+            {
+                DatSetSelected(null);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
