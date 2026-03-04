@@ -591,7 +591,9 @@ namespace ROMVault
 
         private bool CheckMouseUp(RvFile pTree, double x, double y, PointerReleasedEventArgs e)
         {
-            UiTree uTree = (UiTree)pTree.Tree.UiObject;
+            if (pTree?.Tree?.UiObject is not UiTree uTree)
+                return false;
+
             Point pt = new Point(x, y);
 
             if (!Working && uTree.RChecked.Contains(pt))
@@ -638,7 +640,7 @@ namespace ROMVault
             for (int i = 0; i < pTree.ChildCount; i++)
             {
                 RvFile rDir = pTree.Child(i);
-                if (!rDir.IsDirectory || rDir.Tree == null)
+                if (!rDir.IsDirectory || rDir.Tree?.UiObject is not UiTree)
                     continue;
 
                 if (CheckMouseUp(rDir, x, y, e))
